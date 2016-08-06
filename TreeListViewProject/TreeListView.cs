@@ -81,10 +81,9 @@ namespace TreeListViewProject
 
         private void OnUpdateGridView(GridViewColumnCollection gridViewColumnCollection)
         {
-            if (_oldGridViewColumnCollection == gridViewColumnCollection)
-                return;
+            var isOldGridView = gridViewColumnCollection == _oldGridViewColumnCollection;
 
-            if (_oldGridViewColumnCollection != null)
+            if (!isOldGridView && _oldGridViewColumnCollection != null)
             {
                 //unsubscribe old GridView
                 _oldGridViewColumnCollection.CollectionChanged -= ColumnsOnCollectionChanged;
@@ -95,7 +94,8 @@ namespace TreeListViewProject
             if (gridViewColumnCollection == null)
                 return;
 
-            gridViewColumnCollection.CollectionChanged += ColumnsOnCollectionChanged;
+            if (!isOldGridView)
+                gridViewColumnCollection.CollectionChanged += ColumnsOnCollectionChanged;
 
             if (gridViewColumnCollection.Count == 0)
                 return;
@@ -143,6 +143,8 @@ namespace TreeListViewProject
                 firstColumn.CellTemplate = dataTemplate;
                 _currentGridViewColumnCustomTemplate = true;
             }
+
+            _oldGridViewColumnCollection = gridViewColumnCollection;
         }
 
         private void ResetCurrentGridViewColumn()

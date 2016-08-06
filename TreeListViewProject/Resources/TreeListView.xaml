@@ -3,7 +3,7 @@
                     xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
                     xmlns:extensions="clr-namespace:TreeListViewProject.Extensions"
                     xmlns:local="clr-namespace:TreeListViewProject">
-    <!--  Source: https://blogs.msdn.microsoft.com/atc_avalon_team/2006/03/01/treelistview-show-hierarchy-data-with-details-in-columns/  -->
+    <!--  Based on: https://blogs.msdn.microsoft.com/atc_avalon_team/2006/03/01/treelistview-show-hierarchy-data-with-details-in-columns/  -->
     <Style x:Key="MetroGridViewScrollViewerStyle"
            BasedOn="{StaticResource {x:Static GridView.GridViewScrollViewerStyleKey}}"
            TargetType="{x:Type ScrollViewer}">
@@ -79,6 +79,7 @@
         </Setter>
     </Style>
 
+    <converters:TreeViewMarginConverter x:Key="LengthConverter" Length="12" />
     <Style x:Key="MetroTreeListViewItem" TargetType="{x:Type local:TreeListViewItem}">
         <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
         <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
@@ -200,10 +201,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <converters:TreeViewMarginConverter x:Key="LengthConverter" Length="12" />
-
-    <DataTemplate x:Key="TreeViewMovedTemplate">
-        <ContentPresenter Margin="{Binding Converter={StaticResource LengthConverter}, RelativeSource={RelativeSource AncestorType=local:TreeListViewItem}}" Content="{Binding}" />
-    </DataTemplate>
 </ResourceDictionary>
