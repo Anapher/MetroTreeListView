@@ -4,7 +4,7 @@
                     xmlns:extensions="clr-namespace:TreeListViewProject.Extensions"
                     xmlns:local="clr-namespace:TreeListViewProject">
     <!--  Based on: https://blogs.msdn.microsoft.com/atc_avalon_team/2006/03/01/treelistview-show-hierarchy-data-with-details-in-columns/  -->
-    <Style x:Key="MetroGridViewScrollViewerStyle"
+    <Style x:Key="MetroTreeGridViewScrollViewerStyle"
            BasedOn="{StaticResource {x:Static GridView.GridViewScrollViewerStyleKey}}"
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="Focusable" Value="false" />
@@ -193,7 +193,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:TreeListView}">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer Padding="{TemplateBinding Padding}" Style="{DynamicResource MetroGridViewScrollViewerStyle}">
+                        <ScrollViewer Padding="{TemplateBinding Padding}" Style="{StaticResource MetroTreeGridViewScrollViewerStyle}">
                             <ItemsPresenter extensions:FrameworkElementExtensions.SupressBringIntoView="True" />
                         </ScrollViewer>
                     </Border>
