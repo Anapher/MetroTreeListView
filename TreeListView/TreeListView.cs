@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using TreeListViewProject.Extensions;
+using TreeListView.Extensions;
 
-namespace TreeListViewProject
+namespace TreeListView
 {
     //Based on https://blogs.msdn.microsoft.com/atc_avalon_team/2006/03/01/treelistview-show-hierarchy-data-with-details-in-columns/
     public class TreeListView : TreeView

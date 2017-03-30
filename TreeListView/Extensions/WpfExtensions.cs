@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-namespace TreeListViewProject.Extensions
+namespace TreeListView.Extensions
 {
     internal static class WpfExtensions
     {

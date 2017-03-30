@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TreeListViewProject.Extensions
+namespace TreeListView.Extensions
 {
     internal static class FrameworkElementExtensions
     {

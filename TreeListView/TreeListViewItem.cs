@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace TreeListViewProject
+namespace TreeListView
 {
     public class TreeListViewItem : TreeViewItem
     {

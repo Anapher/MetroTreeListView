@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace TreeListViewProject
+namespace Demo
 {
     public class MainViewModel
     {
@@ -65,6 +65,11 @@ namespace TreeListViewProject
                     }
                 }
             };
+
+            for (int i = 0; i < 1000; i++)
+            {
+                Collection.Add(new TestData {Name = "Virtualizing Test"});
+            }
         }
 
         public ObservableCollection<TestData> Collection { get; }
