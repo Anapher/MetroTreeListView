@@ -110,6 +110,7 @@ namespace TreeListView
                 var dataTemplate = new DataTemplate();
                 var spFactory = new FrameworkElementFactory(typeof (ContentPresenter));
                 spFactory.SetBinding(ContentPresenter.ContentProperty, firstColumn.DisplayMemberBinding);
+				spFactory.SetValue(ContentPresenter.ContentTemplateSelectorProperty, firstColumn.CellTemplateSelector);
                 spFactory.SetBinding(MarginProperty,
                     new Binding
                     {
