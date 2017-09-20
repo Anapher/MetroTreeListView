@@ -31,10 +31,10 @@ namespace TreeListView
             = ReadOnlyItemTemplateProperty.DependencyProperty;
 
         private GridViewColumn _currentGridViewColumn;
-        private bool _currentGridViewColumnCustomTemplate;
         private DataTemplate _oldDataTemplate;
         private BindingBase _oldDisplayMemberBindingBase;
         private GridViewColumnCollection _oldGridViewColumnCollection;
+	    private DataTemplateSelector _oldDataTemplateSelector;
 
         public TreeListView()
         {
@@ -43,32 +43,32 @@ namespace TreeListView
 
         public new DataTemplate ItemTemplate
         {
-            get { return (DataTemplate) GetValue(ItemTemplateProperty); }
-            protected set { SetValue(ItemTemplateProperty, value); }
+            get => (DataTemplate) GetValue(ItemTemplateProperty);
+	        protected set => SetValue(ItemTemplateProperty, value);
         }
 
         public string ChildrenPropertyName
         {
-            get { return (string) GetValue(ChildrenPropertyNameProperty); }
-            set { SetValue(ChildrenPropertyNameProperty, value); }
+            get => (string) GetValue(ChildrenPropertyNameProperty);
+	        set => SetValue(ChildrenPropertyNameProperty, value);
         }
 
         public GridView View
         {
-            get { return (GridView) GetValue(ViewProperty); }
-            set { SetValue(ViewProperty, value); }
+            get => (GridView) GetValue(ViewProperty);
+	        set => SetValue(ViewProperty, value);
         }
 
         public object SelectedItemEx
         {
-            get { return GetValue(SelectedItemExProperty); }
-            set { SetValue(SelectedItemExProperty, value); }
+            get => GetValue(SelectedItemExProperty);
+	        set => SetValue(SelectedItemExProperty, value);
         }
 
         public bool SelectItemOnRightClick
         {
-            get { return (bool) GetValue(SelectItemOnRightClickProperty); }
-            set { SetValue(SelectItemOnRightClickProperty, value); }
+            get => (bool) GetValue(SelectItemOnRightClickProperty);
+	        set => SetValue(SelectItemOnRightClickProperty, value);
         }
 
         private static void OnViewChanged(DependencyObject dependencyObject,
@@ -104,46 +104,29 @@ namespace TreeListView
             ResetCurrentGridViewColumn();
             _currentGridViewColumn = firstColumn;
 
-            if (firstColumn.CellTemplate == null)
-            {
-                _oldDataTemplate = firstColumn.CellTemplate;
-                var dataTemplate = new DataTemplate();
-                var spFactory = new FrameworkElementFactory(typeof (ContentPresenter));
-                spFactory.SetBinding(ContentPresenter.ContentProperty, firstColumn.DisplayMemberBinding);
-				spFactory.SetValue(ContentPresenter.ContentTemplateSelectorProperty, firstColumn.CellTemplateSelector);
-                spFactory.SetBinding(MarginProperty,
-                    new Binding
-                    {
-                        RelativeSource =
-                            new RelativeSource(RelativeSourceMode.FindAncestor, typeof (TreeListViewItem), 1),
-                        Converter = (IValueConverter) Application.Current.Resources["LengthConverter"]
-                    });
+	        _oldDataTemplate = firstColumn.CellTemplate;
+	        _oldDataTemplateSelector = firstColumn.CellTemplateSelector;
+	        _oldDisplayMemberBindingBase = firstColumn.DisplayMemberBinding;
 
-                dataTemplate.VisualTree = spFactory;
-                _oldDisplayMemberBindingBase = firstColumn.DisplayMemberBinding;
-                firstColumn.DisplayMemberBinding = null;
-                firstColumn.CellTemplate = dataTemplate;
-                _currentGridViewColumnCustomTemplate = false;
-            }
-            else
-            {
-                _oldDataTemplate = firstColumn.CellTemplate;
-                var dataTemplate = new DataTemplate();
-                var spFactory = new FrameworkElementFactory(typeof (ContentPresenter));
-                spFactory.SetValue(ContentPresenter.ContentTemplateProperty, firstColumn.CellTemplate);
-                spFactory.SetBinding(ContentPresenter.ContentProperty, new Binding("."));
-                spFactory.SetBinding(MarginProperty,
-                    new Binding
-                    {
-                        RelativeSource =
-                            new RelativeSource(RelativeSourceMode.FindAncestor, typeof (TreeListViewItem), 1),
-                        Converter = (IValueConverter) Application.Current.Resources["LengthConverter"]
-                    });
-                dataTemplate.VisualTree = spFactory;
+	        var spFactory = new FrameworkElementFactory(typeof(ContentPresenter));
+	        spFactory.SetBinding(ContentPresenter.ContentProperty, firstColumn.DisplayMemberBinding ?? new Binding("."));
+	        if (firstColumn.CellTemplate != null)
+		        spFactory.SetValue(ContentPresenter.ContentTemplateProperty, firstColumn.CellTemplate);
+			else if (firstColumn.CellTemplateSelector != null)
+		        spFactory.SetValue(ContentPresenter.ContentTemplateSelectorProperty, firstColumn.CellTemplateSelector);
 
-                firstColumn.CellTemplate = dataTemplate;
-                _currentGridViewColumnCustomTemplate = true;
-            }
+	        spFactory.SetBinding(MarginProperty,
+		        new Binding
+		        {
+			        RelativeSource =
+				        new RelativeSource(RelativeSourceMode.FindAncestor, typeof(TreeListViewItem), 1),
+			        Converter = (IValueConverter)Application.Current.Resources["LengthConverter"]
+		        });
+
+	        var dataTemplate = new DataTemplate {VisualTree = spFactory};
+	        firstColumn.DisplayMemberBinding = null;
+	        firstColumn.CellTemplateSelector = null;
+	        firstColumn.CellTemplate = dataTemplate;
 
             _oldGridViewColumnCollection = gridViewColumnCollection;
         }
@@ -153,19 +136,13 @@ namespace TreeListView
             if (_currentGridViewColumn == null)
                 return;
 
-            if (_currentGridViewColumnCustomTemplate)
-            {
-                _currentGridViewColumn.CellTemplate = _oldDataTemplate;
-            }
-            else
-            {
-                _currentGridViewColumn.CellTemplate = null;
-                _currentGridViewColumn.DisplayMemberBinding = _oldDisplayMemberBindingBase;
-            }
+	        _currentGridViewColumn.CellTemplate = _oldDataTemplate;
+	        _currentGridViewColumn.DisplayMemberBinding = _oldDisplayMemberBindingBase;
+	        _currentGridViewColumn.CellTemplateSelector = _oldDataTemplateSelector;
 
             _oldDataTemplate = null;
-            _currentGridViewColumnCustomTemplate = false;
             _oldDisplayMemberBindingBase = null;
+	        _oldDataTemplateSelector = null;
         }
 
         private void ColumnsOnCollectionChanged(object sender,
