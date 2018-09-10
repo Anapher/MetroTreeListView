@@ -17,7 +17,7 @@
         <treeListView:TreeListView
             ChildrenPropertyName="Children"
             ItemsSource="{Binding Collection}"
-            Style="{StaticResource VirtualisedMetroTreeListView}">
+            Style="{StaticResource VirtualizedMetroTreeListView}">
             <treeListView:TreeListView.View>
                 <GridView>
                     <GridViewColumn Width="200" Header="Name">

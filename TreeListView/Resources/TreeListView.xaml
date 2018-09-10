@@ -197,7 +197,7 @@
     </Style>
 
     <Style
-        x:Key="VirtualisedMetroTreeListView"
+        x:Key="VirtualizedMetroTreeListView"
         BasedOn="{StaticResource MetroTreeListView}"
         TargetType="local:TreeListView">
         <Setter Property="ScrollViewer.CanContentScroll" Value="True" />

@@ -4,8 +4,8 @@ namespace TreeListView.Extensions
 {
     internal static class FrameworkElementExtensions
     {
-        public static readonly DependencyProperty SupressBringIntoViewProperty = DependencyProperty.RegisterAttached(
-            "SupressBringIntoView", typeof (bool), typeof (FrameworkElementExtensions),
+        public static readonly DependencyProperty SuppressBringIntoViewProperty = DependencyProperty.RegisterAttached(
+            "SuppressBringIntoView", typeof (bool), typeof (FrameworkElementExtensions),
             new PropertyMetadata(default(bool), PropertyChangedCallback));
 
         private static void PropertyChangedCallback(DependencyObject dependencyObject,
@@ -24,14 +24,14 @@ namespace TreeListView.Extensions
             requestBringIntoViewEventArgs.Handled = true;
         }
 
-        public static void SetSupressBringIntoView(DependencyObject element, bool value)
+        public static void SetSuppressBringIntoView(DependencyObject element, bool value)
         {
-            element.SetValue(SupressBringIntoViewProperty, value);
+            element.SetValue(SuppressBringIntoViewProperty, value);
         }
 
-        public static bool GetSupressBringIntoView(DependencyObject element)
+        public static bool GetSuppressBringIntoView(DependencyObject element)
         {
-            return (bool) element.GetValue(SupressBringIntoViewProperty);
+            return (bool) element.GetValue(SuppressBringIntoViewProperty);
         }
     }
 }
