@@ -10,7 +10,7 @@ dotnet_csproj:
   package_version: '{version}'
   assembly_version: '{version}'
   file_version: '{version}'
-  informational_version: '{version}'
+  informational_version: '{version}-$(APPVEYOR_REPO_BRANCH)+$(APPVEYOR_REPO_COMMIT)'
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
@@ -27,7 +27,7 @@ build_script:
 after_build:
   # For once the build has completed
 artifacts:
- - path: '\TreeListView\bin\Release\net45\publish'
+ - path: '\TreeListView\bin\Release\net45\publish\*.nupkg'
    name: NuGet Package
    type: NuGetPackage
 clone_depth: 1
