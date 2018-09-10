@@ -23,11 +23,11 @@ before_build:
   - cmd: dotnet restore ./TreeListView/TreeListView.csproj --verbosity m
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
-  - cmd: dotnet publish ./TreeListView/TreeListView.csproj -c Release
+  - cmd: dotnet pack ./TreeListView/TreeListView.csproj -c Release
 after_build:
   # For once the build has completed
 artifacts:
- - path: '\TreeListView\bin\Release\net45\publish\*.nupkg'
+ - path: '\TreeListView\bin\Release\*.nupkg'
    name: NuGet Package
    type: NuGetPackage
 clone_depth: 1
