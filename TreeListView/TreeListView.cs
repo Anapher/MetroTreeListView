@@ -36,6 +36,12 @@ namespace TreeListView
         private GridViewColumnCollection _oldGridViewColumnCollection;
 	    private DataTemplateSelector _oldDataTemplateSelector;
 
+        static TreeListView()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(TreeListView),
+                new FrameworkPropertyMetadata(typeof(TreeListView)));
+        }
+
         public TreeListView()
         {
             SelectedItemChanged += OnSelectedItemChanged;

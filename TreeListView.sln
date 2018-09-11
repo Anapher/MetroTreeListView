@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListView", "TreeListView\TreeListView.csproj", "{BE9E6BCE-C30F-47EF-AEE9-37F502DE4F5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeListView", "TreeListView\TreeListView.csproj", "{BE9E6BCE-C30F-47EF-AEE9-37F502DE4F5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{B8644C4D-F563-4782-90F3-F737942A4B1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{B8644C4D-F563-4782-90F3-F737942A4B1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96CDF8CB-47E4-4612-B278-C146CB1753BC}
 	EndGlobalSection
 EndGlobal
